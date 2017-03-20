@@ -3,8 +3,10 @@
 **Program files :**
 
 **auto.bash  :** Program used for parsing of data and for exploratory data analysis.
-ExploratoryAnalysis.ipynb : Program used to plot histograms of pickups per day/month/hour
-Geographic_exploratory_analysis.ipynb : Program used for plotting data on NY map using the parsed files in parsed_data folder.
+
+**ExploratoryAnalysis.ipynb :** Program used to plot histograms of pickups per day/month/hour
+
+**Geographic_exploratory_analysis.ipynb :** Program used for plotting data on NY map using the parsed files in parsed_data folder.
 
 **Directories and their description  :**
 
