@@ -1,0 +1,11 @@
+Year Month Day Max.Temp Min.Temp Rain Snow Ice(on Ground)
+
+
+
+The '*' flags in Preliminary indicate the data have not completed processing and qualitycontrol and may not be identical to the original observation
+Empty, or blank, cells indicate that a data observation was not reported.
+*Ground Cover: 1=Grass; 2=Fallow; 3=Bare Ground; 4=Brome grass; 5=Sod; 6=Straw mulch; 7=Grass muck; 8=Bare muck; 0=Unknown
+"s" This data value failed one of NCDC's quality control tests.
+"T" values in the Precipitation category above indicate a TRACE value was recorded.
+"A" values in the Precipitation Flag or the Snow Flag column indicate a multiday total, accumulated since last measurement, is being used.
+Data value inconsistency may be present due to rounding calculations during the conversion process from SI metric units to standard imperial units
