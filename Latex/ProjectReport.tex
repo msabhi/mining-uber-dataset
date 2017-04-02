@@ -1,0 +1,59 @@
+\documentclass[12pt]{article}
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+\usepackage{amsmath,amsfonts,amssymb}
+\newcommand{\inv}{^{\raisebox{.2ex}{$\scriptscriptstyle-1$}}}
+\begin{document}
+
+\begin{titlepage}
+\title{Mining Uber Dataset}
+\author{Abhilash Mysore Somashekar \\Raviraj Prakash Wani \\ Satya Akhil Chowdary Kuchipudi \\Sanil Jain}
+\date{1 April 2017}
+\maketitle
+\end{titlepage}
+\textbf{Project Github Link:} https://github.com/msabhi/mining-uber-dataset
+
+
+\textbf{Objective:}
+
+The dataset collected by FiveThirtyEight contains data on over 4.5 million Uber pickups in New York City from April to September 2014. The data set is divided across six files i.e. one file per month
+
+\textbf{Exploratory Analysis Goals:}
+
+\begin{itemize}
+	\item Preprocessing of data (rounding of the Latitude and Longitudes)
+	\item To find out whether 4.5 million data points over 6 months are continuous or not
+	\item To plot counts in histograms as well as plot Uber pickups on actual map and look at thecoverage of NYC
+	\item Analyze Uber pickup data over various months
+	\item Finding the hotspot locations in the data. These are the locations where there are pickups more than a specified threshold
+\end{itemize}
+
+Kernel \\
+\begin{center}
+$K_{nm} = 1/\lambda \left ( \phi \phi ^{T} \right )$ \break
+\end{center}
+
+As per Linear Rigression :: \\
+
+\begin{center}
+\(\theta\)   = $(XX^{T})^{-1}X^{T}Y$
+\end{center}
+
+Hence for Kernel Ridge Regression \\
+
+\begin{center}
+
+$E\left [w/y  \right ] =  A^{-1}\phi ^{T}Y$\ \break
+                      
+$A = (\phi^{T} \phi + \lambda I )$ \break
+
+$\phi =  \phi \left ( X \right )$ \break
+
+$K = 1/\lambda \left ( \phi \phi ^{T} \right )$ \break
+
+$A^{-1}\phi ^{T} = \phi ^{T}\left ( K + \lambda I^{-1} \right )$ \break
+
+$E\left [ f\left ( X\star  \right )/y \right ] = \phi \left ( x\star  \right )^{T}E\left [ w/y \right ]$
+
+\end{center}
+\end{document}
