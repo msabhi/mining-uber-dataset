@@ -20,7 +20,7 @@
 
 \begin{titlepage}
 \title{Mining Uber Dataset}
-\author{Abhilash Mysore Somashekar \\Raviraj Prakash Wani \\ Satya Akhil Chowdary Kuchipudi \\Sanil Jain}
+\author{Abhilash Mysore Somashekar \\Raviraj Prakash Wani \\Sanil Jain \\ Satya Akhil Chowdary Kuchipudi }
 \date{1 April 2017}
 \maketitle
 \end{titlepage}
@@ -86,13 +86,20 @@ We came up with a new approach for binning, that is to do a geospatial DBSCAN. S
 
 To work on the data and analyze the trends based on time we need to understand on how to bin the data based on 4 dimensions i.e lat, long, date and time(1 - 24). We won?t be considering minutes and seconds, as the granularity of that level wouldn?t give any useful trends. So now if we are to consider all distinct lat-long points rounded to 3 decimal, we have 6,48,517 points. We have 30 days per month and 24 hours per day. So if we were to generate all possibilities we end up with 6,48,517 * 30 * 24 records which is pretty high number to compute upon. To tackle this situation we have to come up with a binning on count. We can?t do binning on day or time as they are granularized to the maximum. We are left with lat-long points. Rounding off lat-long points to less than 3 decimal points will lead to huge loss of precision. So similar to above, we do DBSCAN to calculate grids and represent all points in cluster by center of the cluster. So now the computation complexity depends on how many grids or clusters we pre-decided. In this way, we reduce the computation complexity of the problem while still maintaining the distribution of the data. \\
 
-\textbf{Spatial DBSCAN}\\ 
+\textbf{Plotting GeoJSON}\\ 
 
-\href{https://github.com/msabhi/mining-uber-dataset/blob/master/Milestone-2/Data_Plot.geojson}{GeoJSON} \\
+To understand the distribution of pickups across the New York city and to choose the best clustering algorithm for binning and reducing number of rows we chose to plot the pickups on GeoJSON. \break
+GeoJSON is a format for encoding a variety of geographic data structures. \break
+Advantages of GeoJSON in our project : Helped us understand the granularity at which we can bin our pickup latitude and longitude. Every GeoJSON point at specific zoom levels displays the number of pickups at that point. \break
+Scripts to create our GeoJSON given a list of pickup lat long : \\
+\begin{itemize}
+\item GeoJSONCreator.sh : Script to convert our lat long to GeoJSON.
+\item jsontogeo.py : Python program to convert JSON to GeoJSON.
+\end{itemize}
 
-\href{https://github.com/msabhi/mining-uber-dataset/blob/master/Milestone-2/GeoSpatial-DBScan-UBER.ipynb}{Code} \\
-
-\break
+GeoJSON of our entire dataset : \href{https://github.com/msabhi/mining-uber-dataset/blob/master/Milestone-2/Data_Plot.geojson}{GeoJSON} \\ 
+After experimenting at different levels of our GeoJSON, we were able to determine the parameters for our GeoSpacial DBSCAN algorithm - \href{https://github.com/msabhi/mining-uber-dataset/blob/master/Milestone-2/GeoSpatial-DBScan-UBER.ipynb}{Code} \\
+April binned points GeoJSON : \href{https://github.com/msabhi/mining-uber-dataset/blob/master/Milestone-2/binning_centers_april.geojson}{GeoJSON} \\ 
 	 
 \textbf{Gaussian Process Regression}\\
 
@@ -181,4 +188,9 @@ ${\mathbb{E}}[\frac{f(x_{\star })}{y}]  = \sum_{n,m}k(x_{*},x_{n})(K + \lambda I
 
 \end{itemize}
 
+\textbf{REFRENCES:} \\
+\begin{itemize}
+\item \href{https://www.linkedin.com/pulse/amazing-ways-uber-using-big-data-analytics-bernard-marr}{https://www.linkedin.com/pulse/amazing-ways-uber-using-big-data-analytics-bernard-marr}
+\item \href{http://geojson.org/}{http://geojson.org/}
+\end{itemize}
 \end{document}
