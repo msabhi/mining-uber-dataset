@@ -1,0 +1,4 @@
+Spatial binning by grid 100x100
+Time only GPFlow
+Random Forest Regressor
+
