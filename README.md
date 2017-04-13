@@ -16,4 +16,10 @@ Histogram representations of Average number of pickups by Day, Average number of
 
 **Data  :** Contains both raw data and parsed data.
 raw_data contains all of the original uber data set untouched.
-parsed_data contains data parsed for plotting on NY map and for exploratory data analysis 
+parsed_data contains data parsed for plotting on NY map and for exploratory data analysis
+
+**Contributors**
+Raviraj Wani
+Satya Akhil Chowdary Kuchipudi
+Abhilash 
+Sanil Jain 
