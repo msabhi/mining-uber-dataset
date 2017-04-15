@@ -188,6 +188,56 @@ ${\mathbb{E}}[\frac{f(x_{\star })}{y}]  = \sum_{n,m}k(x_{*},x_{n})(K + \lambda I
 
 \end{itemize}
 
+\break
+
+\textbf{Random Forest Regressor} \\
+
+\textbf{Introduction} \\
+
+In random forests each tree in the ensemble is built from a sample drawn with replacement from the training set. In addition, when splitting a node during the construction of the tree, the split that is chosen is no longer the best split among all features. Instead, the split that is picked is the best split among a random subset of the features. As a result of this randomness, the bias of the forest usually slightly increases but, due to averaging, its variance also decreases, usually more than compensating for the increase in bias, hence yielding an overall better model.
+
+\textbf{Pre-processing Step}
+
+To use our data with Random Forest regressor, we did few steps of pre-processing. 
+
+\begin{itemize}
+	\item Grid Binning
+	\item Epoch Time Conversion
+	\item Binning by Time+Grid
+\end{itemize}
+
+Grid binning is the way of binning in which we divide the entire area of NYC into equally spaced uniform square grids. We do binning by considering all latitude and longitude points lying in a grid and then represent them by grid itself. We represent the grid by row and column it belongs to. This way we can reduce the size of data points but still maintain the original distribution of the data.
+Now we have to find a centre to represent the grids itself. Original way to do this to find the mean of all the points in the grid and use that point for representation. We did in a simpler way by just using grid numbers to represent the grid itself. Why this works as original is because grid numbers are also equally spaced and uniformly distributed as the original centers. 
+Doing so, gave us a clear picture of how NYC looks in grids. Here is the picture on 1000x1000 grids.
+
+
+\includegraphics[width=8cm, height=8cm]{binning.png}
+
+We can make out the outline of Manhattan from this HeatMap. We can go more granular by increasing the grids, but that would outdo the reason why we did binning on first place.
+We did binning on 100x100 grids, but that didn?t give us a clear picture nor accuracy we expected.
+
+\textbf{Epoch Time Conversion }
+
+The Unix epoch (or Unix time or POSIX time or Unix timestamp) is the number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z) 
+The reason why we did this is to convert the standard date-time format to a number format, as it acts as one of the input feRandom Forest Regressor.
+
+\textbf{Binning on Time}
+
+We bin on time and grid together and find counts for each unique combination. Time here is just counted on hours, not minutes and seconds as we won?t be getting meaningful trends in that granularity. We use the count as Y label for random forest regressor(estimator).
+
+\textbf{Results}
+
+Prediction accuracy was 89 with Random Forest Estimator. We used 5 months starting from april to august as training data and September data as testing data. We used a mean error of 1(2 was the standard deviation of the original data) ride for finding the accuracy.  \\
+
+\textbf{Prediction Accuracy =  89} \\
+\textbf{Root Mean Square Error =  1.7914}
+
+\textbf{Trends}
+
+We wanted to find trends on this. Let?s see how Friday evening differs from Monday morning.
+
+\break
+
 \textbf{REFRENCES:} \\
 \begin{itemize}
 \item \href{https://www.linkedin.com/pulse/amazing-ways-uber-using-big-data-analytics-bernard-marr}{https://www.linkedin.com/pulse/amazing-ways-uber-using-big-data-analytics-bernard-marr}
