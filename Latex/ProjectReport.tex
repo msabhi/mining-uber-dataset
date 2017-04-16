@@ -27,18 +27,20 @@
 
 \paragraph{1.	Introduction} ~\\
 
-Uber is a smartphone-app which provides on demand ride service connecting users who need to get somewhere with drivers willing to give them a ride. The service has been hugely controversial, due to regular taxi drivers claiming that it is destroying their livelihoods, and concerns over the lack of regulation of the company?s drivers, surge pricing etc. \\
+Uber is a smartphone-app which provides on demand ride service connecting users who need to get somewhere with drivers willing to give them a ride. The service has been hugely controversial, due to regular taxi drivers claiming that it is destroying their livelihoods, and concerns over the lack of regulatitudeion of the company's drivers, surge pricing etc. \\
 
-The business is rooted firmly in Big Data and leveraging this data in a more effective way than traditional taxi firms have managed has played a huge part in its success. Uber?s entire business model is based on the very Big Data principle of crowd sourcing. Anyone with a car who is willing to help someone get to where they want to go can offer to help get them there. \\
+The business is rooted firmly in Big Data and leveraging this data in a more effective way than traditional taxi firms have managed has played a huge part in its success. Uber's entire business model is based on the very Big Data principle of crowd sourcing. Anyone with a car who is willing to help someone get to where they want to go can offer to help get them there. \\
 
-FiveThirtyEight obtained the data from the NYC Limo and Taxi commission by submitting a Freedom of Information Law request on July 20, 2015. The dataset is contains on over 4.5 million Uber pickups in New York City from April to September 2014. This data was used for four FiveThirtyEight stories: Uber Is Serving New York's Outer Boroughs More Than Taxis Are, Public Transit Should Be Uber's New Best Friend, Uber Is Taking Millions Of Manhattan Rides Away From Taxis, and Is Uber Making NYC Rush-Hour Traffic Worse? \\
+FiveThirtyEight obtained the data from the NYC Limo and Taxi commission by submitting a Freedom of Information Law request on July 20, 2015. The dataset is contains on over 4.5 million Uber pickups in New York City from April to September 2014. This data was used for four FiveThirtyEight stories: Uber Is Serving New York's Outer Boroughs More Than Taxis Are, Public Transit Should Be Uber's New Best Friend, Uber Is Taking Millions Of Manhattan Rides Away From Taxis, and Is Uber Making NYC Rush-Hour Traffic Worse \\
 
-We are extending current analysis using best practices in Data Mining to answer questions like how many pick-ups can we expect on a day, given time and at a location in NYC. We also would analyze ?Hot-Spots?, those are best places for drives to be to get the most pickups during a day. We would be performing Density Estimation, Gaussian Process Regression and also predict ride patterns for weekdays. Extending to this, we may also mine for patterns if weather changes with pickups
+We are extending current analysis using best practices in Data Mining to answer questions like how many pick-ups can we expect on a day, given time and at a location in NYC. We would analyze 'Hot-Spots', which are best places for drives to be to get the most pickups during a day. We would be performing Density Estimation, Gaussian Process Regression and also predict general ride patterns.  We would also study correlatitudeion between weather changes and number of Uber pickups. We would use Random Forest Regressor for predicting the number of pickups. Various data visualization techniques will be used for effective analysis of trends.
 
-\paragraph{2.	Exploratory Analysis} ~\\
+\break
+
+\paragraph{2.	Exploratory Analysis}
 \paragraph{2.1 Goals} ~\\
 \begin{itemize}
-	\item Preprocessing of data (rounding of the Latitude and Longitudes)
+	\item Preprocessing of data (rounding of the latitude and longitudes)
 	\item To find out whether 4.5 million data points over 6 months are continuous or not
 	\item To plot counts in histograms as well as plot Uber pickups on actual map and look at the coverage of NYC
 	\item Analyze Uber pickup data over various months
@@ -49,15 +51,15 @@ We are extending current analysis using best practices in Data Mining to answer 
 
 \tab Average Pickups by Day : Comparable bars over all days of a month suggest that Uber data is continuous over the data set. Also similar graphs have been observed for rest of the months.\\
 \begin{center}
-\includegraphics[width=8cm, height=8cm]{ByDay.png} 
+\includegraphics[width=8cm, height=7cm]{ByDay.png} 
 \end{center}
 \tab Average Pickups by Hour : This graph is an average of all the days data over 6 months. This suggest the evening 5:00 pm are the peak hours for Uber.\\
 \begin{center}
-\includegraphics[width=8cm, height=8cm]{ByHour.png} 
+\includegraphics[width=8cm, height=7cm]{ByHour.png} 
 \end{center}
 \tab Average Pickups by Month (April to September) : The plot of cumulative pickups suggest that Uber business has grown over these set of months since average number of pickups have almost doubled from April to September\\
 \begin{center}
-\includegraphics[width=8cm, height=8cm]{ByMonth.png}
+\includegraphics[width=8cm, height=7cm]{ByMonth.png}
 \end{center}
 
 \paragraph{2.3 Geographical Plot (Density Plot):}  ~\\
@@ -67,50 +69,58 @@ The complete density plot carves out the map of New York City on a black canvas 
 \includegraphics[width=8cm, height=8cm]{Complete.png}
 \end{center}
 
+\break
+
 \paragraph{3  Binning and Data Reduction} ~\\
 
-The uber-dataset for all the 6 months contains around 4.5 millions records. Binning helps in reducing the number of the input required for model creation. Also it helped us in decided the label required for regression. 
-Binning was done based on following creitera.
+The uber-dataset for all the 6 months contains around 4.5 millions records. Binning helps in reducing the number of the input required for model creation. Also it helped us in deciding the labels required for regression. 
+Binning was done based on following criterias.
 \begin{itemize}
 \item Time based binning : All the pickup rides are divided into 24 hours slot as per pickup time.
 \item Location based binning : Entire NYC areas was divided into 'n' clusters. We used spatial DBSCAN for finding this each area center point.
 \end{itemize}
 
-\paragraph{3.1 Zipcode binning}~\\
+\paragraph{3.1 Location based binning}~\\
 
-Initially, we wanted to do binning for lat-long based on zipcode. So we converted each lat-long point to 3-decimal precision, to reduce the file size. If we round to 3 points after decimal, we are considering all points in 100m area as a single point. There are two main issues with this approach. First being that we are losing precision by rounding off and second we can't guarantee that zipcode regions are uniformly distributed areas. \\
+Initially, we wanted to do binning for latitude-longitude based on zipcode. So we converted each latitude-longitude point to 3-decimal precision, to reduce the file size. If we round to 3 points after decimal, we are considering all points in 100m area as a single point. There are two main issues with this approach. First being that we are losing precision by rounding off and second we can't guarantee that zipcode regions are uniformly distributed areas. \\
 
-So to solve this, we worked on doing manual binning by actually dividing NYC into square grids. How this approach works is we divide the city into smaller square blocks of grids and all pickup locations in that particular grid can be denoted or represented by a center of the grid. \\
+We need to do one main change to this before we proceed with this step. We need to convert latitude-longitude point into 3-dimensional point which represents the latitude-longitude in real world. Technically we are looking at a cube space which includes all of NYC. This approach became too much technical and complex due to conversions and re-conversions. \\
 
-We need to do one main change to this before we proceed with this step. We need to convert lat-long point into 3-dimensional point which represents the lat-long in real world. Technically we are looking at a cube space which includes all of NYC. This approach became too much technical and complex due to conversions and re-conversions. \\
+We came up with a new approach for binning, that is to do a geospatial DBSCAN. We ran a geospatial DBSCAN on the latitude-longitude points to determine clusters. We didn't use euclidean distance for distance measure, instead we went with haversine formula for calculatitudeing distance between pair of latitude-longitude points.  Then we calculatitudeed the centers of the clusters by calculatitudeing the mean of the points belonging to one cluster. The issue with this approach was that we did not get uniformly distributed and equally sized clusters.\\
 
-We came up with a new approach for binning, that is to do a geospatial DBSCAN. So what we did was run a DBSCAN on the lat-long points to determine clusters. We didn?t use euclidean distance for distance measure, instead we went with haversine formula for calculating distance between pair of lat-long points. We did a small change to DBSCAN to find all the centers of the clusters and then represent all points belonging to the cluster by that center point. \\
+So to solve this, we worked on manual binning by actually dividing NYC into equally sized square grids. This approach works because we divide the city into smaller square blocks of grids and all pickup locations in that particular grid can be denoted or represented by a center of the grid. Hence we get equal size grids by geographical area over the whole New York City\\
 
 \paragraph{3.2 Binning by Time} ~\\
 
-To work on the data and analyze the trends based on time we need to understand on how to bin the data based on 4 dimensions i.e lat, long, date and time(1 - 24). We won?t be considering minutes and seconds, as the granularity of that level wouldn?t give any useful trends. So now if we are to consider all distinct lat-long points rounded to 3 decimal, we have 6,48,517 points. We have 30 days per month and 24 hours per day. So if we were to generate all possibilities we end up with 6,48,517 * 30 * 24 records which is pretty high number to compute upon. To tackle this situation we have to come up with a binning on count. We can?t do binning on day or time as they are granularized to the maximum. We are left with lat-long points. Rounding off lat-long points to less than 3 decimal points will lead to huge loss of precision. So similar to above, we do DBSCAN to calculate grids and represent all points in cluster by center of the cluster. So now the computation complexity depends on how many grids or clusters we pre-decided. In this way, we reduce the computation complexity of the problem while still maintaining the distribution of the data. \\
+To analyze the uber pickup trends based on time we need to understand on how to bin the data based on hours with the values between 1 to 24. We won't be considering minutes and seconds, as the granularity of that level wouldn't give any useful trends. If we consider all distinct latitude-longitude points rounded upto 3 places of decimal, we have 6,48,517 distinct latitude,longitude combinations for our dataset. We have 30 days per month and 24 hours per day. So if we were to generate all possible cases, we would end up with 6,48,517 * 30 * 24 distinct records, which is a really high number to compute upon.  So now the computation complexity depends on how many grids or clusters we computed with location based binning multiplied by time based binning. In this way, we control the computation complexity of the problem by tuning the number of grids or bins in time.\\
 
-\paragraph{3.3 Plotting GeoJSON}
+\paragraph{3.3 Plotting GeoJSON} ~\\
 
-To understand the distribution of pickups across the New York city and to choose the best clustering algorithm for binning and reducing number of rows we chose to plot the pickups on GeoJSON. \break
-GeoJSON is a format for encoding a variety of geographic data structures. \break
-Advantages of GeoJSON in our project : Helped us understand the granularity at which we can bin our pickup latitude and longitude. Every GeoJSON point at specific zoom levels displays the number of pickups at that point. \break
-Scripts to create our GeoJSON given a list of pickup lat long : \\
+To understand the distribution of pickups across the New York city and to choose the best algorithm for binning and reducing number of rows we chose to plot the pickups as a GeoJSON. GeoJSON is a format for encoding a variety of geographic data structures. Advantages of GeoJSON in our project : Helped us understand the granularity at which we can bin our pickup latitude and longitude. Every GeoJSON point at specific zoom levels displays the number of pickups at that point. \\
 \begin{itemize}
-\item GeoJSONCreator.sh : Script to convert our lat long to GeoJSON.
-\item jsontogeo.py : Python program to convert JSON to GeoJSON.
+\item GeoJSON of our entire dataset : \href{https://github.com/msabhi/mining-uber-dataset/blob/master/Milestone-2/Data_Plot.geojson}{GeoJSON} 
+\item After experimenting at different levels of our GeoJSON, we were able to determine the parameters for our GeoSpacial DBSCAN algorithm - \href{https://github.com/msabhi/mining-uber-dataset/blob/master/Milestone-2/GeoSpatial-DBScan-UBER.ipynb}{Code} 
+\item April binned points GeoJSON : \href{https://github.com/msabhi/mining-uber-dataset/blob/master/Milestone-2/binning_centers_april.geojson}{GeoJSON} 
 \end{itemize}
 
-GeoJSON of our entire dataset : \href{https://github.com/msabhi/mining-uber-dataset/blob/master/Milestone-2/Data_Plot.geojson}{GeoJSON} \\ 
-After experimenting at different levels of our GeoJSON, we were able to determine the parameters for our GeoSpacial DBSCAN algorithm - \href{https://github.com/msabhi/mining-uber-dataset/blob/master/Milestone-2/GeoSpatial-DBScan-UBER.ipynb}{Code} \\
-April binned points GeoJSON : \href{https://github.com/msabhi/mining-uber-dataset/blob/master/Milestone-2/binning_centers_april.geojson}{GeoJSON} \\ 
+\includegraphics[width=13.3cm, height=7cm]{GeoJson}  \\
+
+\includegraphics[width=13.3cm, height=7cm]{NewYorkGeoJson} \\
+
+
+Both of the above images represent the number of uber pickup at different zoom levels. This provides a dynamic view to grid and choose parameters for future analysis.
+
+\break
 
 \paragraph{4 Random Forest Regressor} ~\\
 \paragraph{4.1 Introduction} ~\\
 
 In random forests each tree in the ensemble is built from a sample drawn with replacement from the training set. In addition, when splitting a node during the construction of the tree, the split that is chosen is no longer the best split among all features. Instead, the split that is picked is the best split among a random subset of the features. As a result of this randomness, the bias of the forest usually slightly increases but, due to averaging, its variance also decreases, usually more than compensating for the increase in bias, hence yielding an overall better model.
 
+For our dataset the features that we feed to train random forest regressor are binning centers, epoch time stamps with the label as number of pickups. We used 5 months of data as our training data and last month data for valadating the model.
+
 \paragraph{4.2 Pre-processing Step} ~\\
+
 To use our data with Random Forest regressor, we did few steps of pre-processing. 
 
 \begin{itemize}
@@ -120,48 +130,60 @@ To use our data with Random Forest regressor, we did few steps of pre-processing
 \end{itemize}
 
 \paragraph{4.2.a Grid Binning and why it's better than DBSCAN} ~\\
-Grid binning is the way of binning in which we divide the entire area of NYC into equally spaced uniform square grids. We do binning by considering all latitude and longitude points lying in a grid and then represent them by grid itself. We represent the grid by row and column it belongs to. This way we can reduce the size of data points but still maintain the original distribution of the data.
-Now we have to find a centre to represent the grids itself. Original way to do this to find the mean of all the points in the grid and use that point for representation. We did in a simpler way by just using grid numbers to represent the grid itself. Why this works as original is because grid numbers are also equally spaced and uniformly distributed as the original centers. 
-Doing so, gave us a clear picture of how NYC looks in grids. Here is the picture on 1000x1000 grids.
+
+In Grid binning we divide the entire area of NYC into uniformly spaced two dimensional square grids. We do binning by considering all latitude and longitude pairs lying in a grid and then represent them by co-ordinates of the grid center. We represent the grid by row and column it belongs to.By this approach we can reduce the size of data but still maintain the original variance of the data.
+Now we need to find centers to represent the grids. One way to do this to find the mean of all the points in the grid and use that point as the new center. A better approach to solve this issue is to use the two dimensional grid coordinates rather than the geographical centers. This works because grid cooridnates are also equally spaced and uniformly distributed as the original geographical centers. 
+Doing so, gave us a clear picture of how NYC looks in grids. Here is the picture on 1000x1000 grids. \\
 
 
-\includegraphics[width=8cm, height=8cm]{binning.png}
+\includegraphics[width=11cm, height=8cm]{binning.png} \\
 
-We can make out the outline of Manhattan from this HeatMap. We can go more granular by increasing the grids, but that would outdo the reason why we did binning on first place.
-We did binning on 100x100 grids, but that didn't give us a clear picture nor accuracy we expected.
+
+We can deduce the shape of Manhattan from this HeatMap. We can increase the granularity by increasing the number of grids, but that would outdo the reason why we did binning in the first place.
 
 
 \paragraph{4.2.b Epoch Time Conversion and why it helps} ~\\
 
 The Unix epoch (or Unix time or POSIX time or Unix timestamp) is the number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z) 
-The reason why we did this is to convert the standard date-time format to a number format, as it acts as one of the input for Random Forest Regressor. \\
-
+This convert the standard date-time string to a number, as it acts as one of the input for Random Forest Regressor. \\
+\break
 
 \paragraph{4.2.c Binning on Time and Grid} ~\\
 
-We bin on time and grid together and find counts for each unique combination. Time here is just counted on hours, not minutes and seconds as we won?t be getting meaningful trends in that granularity. We use the count as Y label for random forest regressor(estimator).
+We bin on time and grid together and find number of Uber pickups for each unique combination. We use the count as Y label for random forest regressor(estimator). 
 
 
 \paragraph{4.3 Results} ~\\
 
-Prediction accuracy was 89 with Random Forest Estimator. We used 5 months starting from april to august as training data and September data as testing data. We used a mean error of 1(2 was the standard deviation of the original data) ride for finding the accuracy.  \\
+Prediction accuracy was 89\% with Random Forest Estimator. We used 5 months starting from April to August as training data and September data as testing data. We used a mean error of 1 ride for finding the accuracy.  \\
 
-Prediction Accuracy =  89\\
+Prediction Accuracy =  89\% \\
 
 Root Mean Square Error =  1.7914\\
 
 \break
-
-\paragraph{5 GPFlow} ~\\ 
+\paragraph{5 GPFlow} 
 \paragraph{5.1 Introduction} ~\\
-Gaussian process is a statistical model where observations occur in a continuous domain. From the results of exploratory analysis we concluded that our data is continuous in time and we can implement Gaussian Process Regression with Periodic Kernels to study the trends in Uber Pickups daily, hourly or weekly. We used GPFlow building Gaussian process models in python, using TensorFlow.
+
+Gaussian process is a statistical model where observations occur in a continuous domain. From the results of exploratory analysis we concluded that our data is continuous in time and we can implement Gaussian Process Regression with Periodic Kernels to study the trends in Uber Pickups daily, hourly or weekly. We used GPFlow building Gaussian process models in python, using TensorFlow.
 
 \paragraph{5.2 Data Pre-Processing} ~\\
-We had the data with features like date and time of pickup over 6 months. We transformed the data by binning data by hour i.e we assumed starting date and time of our data to be first hour and then counted Uber pickups by each hour ranging from April 1st  12:00 am to Sep 30th 12:00 pm. This was done so that we can apply and experiment with Periodic Kernels (Hourly, Weekly or Daily) \\We also scale our features like number of pickups by dividing it by the max number of pickups, this results in value for number of pickups to be scaled down to number between zero and one. We noticed that doing such scaling makes GPFlow faster and we get more accurate metrics out of the library. \\
 
-We take three kernels \\km = GPflow.kernels.Matern52(1, lengthscales=12*24.0) \\k724 = GPflow.kernels.PeriodicKernel(1, period=7*24.0) \\k24 = GPflow.kernels.PeriodicKernel(1, period=24.0) \\
+We had the data with features like date and time of pickup over 6 months. We transformed the data by binning data by hour i.e we assumed starting date and time of our data to be first hour and then counted Uber pickups by each hour ranging from April 1st  12:00 am to Sep 30th 12:00 pm. This was done so that we can apply and experiment with Periodic Kernels (Hourly, Weekly or Daily) \\
 
-First Kernel is a Matern5/2 Kernel with a defined length scale (lengthscale ? determines the length of the 'wiggles' in your function. In general, you won't be able to extrapolate more than ? units away from your data). Next kernel is a periodic kernel defined for weekly trends and one other kernel we define covers daily trends. These kernels are experimented with different configurations to maximize the log likelihood.  \\Optimization is done by calling m.optimize() which has optional arguments that are passed through to scipy.optimize.minimize (we minimize the negative log-likelihood). \\
+We also scale our features like number of pickups by dividing it by the max number of pickups, this results in value for number of pickups to be scaled down to number between zero and one. We noticed that doing such scaling makes GPFlow faster and we get more accurate metrics out of the library.\\
+
+
+We take three kernels 
+\begin{itemize}
+\item km = GPflow.kernels.Matern52(1, lengthscales=12*24.0)
+\item k724 = GPflow.kernels.PeriodicKernel(1, period=7*24.0)
+\item k24 = GPflow.kernels.PeriodicKernel(1, period=24.0)
+\end{itemize}
+
+First Kernel is a Matern5/2 Kernel with a defined length scale (lengthscale determines the length of the 'wiggles' in your function. In general, you won't be able to extrapolate more than units away from your data). Next kernel is a periodic kernel defined for weekly trends and third kernel covers daily trends. These kernels are experimented with different configurations to maximize the log likelihood.  \\
+
+Optimization is done by calling m.optimize() which has optional arguments that are passed through to scipy.optimize.minimize (we minimize the negative log-likelihood).
 
 \paragraph{5.3 Gaussian Process Regression} ~\\
 
@@ -253,21 +275,21 @@ ${\mathbb{E}}[\frac{f(x_{\star })}{y}]  = \sum_{n,m}k(x_{*},x_{n})(K + \lambda I
 \break
 
 
-\paragraph{6 Trends} ~\\
+\paragraph{6 Trends} 
 
 \paragraph{6.1 Trends for April}  ~\\
 
 We apply Gaussian process regression for Uber pickups data of April, the plot of mean, covariance and confidence intervals shown in below image. In this figure ?x? is actually the data point. Blue line is mean of the Gaussian that we fit. There is also a light blue fill represents confidence intervals (variance). After optimizing and maximizing the log likelihood the mean of the Gaussian is a good fit. Also another important change was to fix the kernels parameters so that re-running optimization of GPFlow model does not change. \\
 
 \begin{center}
-\includegraphics[width=8cm, height=8cm]{April1} 
+\includegraphics[width=12cm, height=8cm]{April1} 
 \end{center}
 
-April2 shows the residual plot that is plotting the data by reducing mean from the GP model for each point. Looking at this figure we can conclude that more than 95 of the data is within 5 range of mean we fit. This also gives us a hint to look at points which are substantially away from the mean. So these points are the hours where Uber had substantial increase in its pickups. We need to investigate the reasons for this increase and hence we do the analysis factors like change in temperature, prepetition(rainfall), public holidays (state or federal) or any incident that accounts for this increase in Uber pickups. \\
+Below figure shows the residual plot that is plotting the data by reducing mean from the GP model for each point. Looking at this figure we can conclude that more than 95 of the data is within 5 range of mean we fit. This also gives us a hint to look at points which are substantially away from the mean. So these points are the hours where Uber had substantial increase in its pickups. We need to investigate the reasons for this increase and hence we do the analysis factors like change in temperature, prepetition(rainfall), public holidays (state or federal) or any incident that accounts for this increase in Uber pickups. \\
 \begin{center}
-\includegraphics[width=6cm, height=6cm]{April2} 
+\includegraphics[width=12cm, height=8cm]{April2} 
 \end{center}
-April3 shows scaled plot of Uber Pickups cumulated by a day, daily change in weather and change in precipitation. We notice one thing consistently, i.e whenever there is precipitation or sharp changes in weather Uber pickups substantially increase. The cases are highlighted in the plot. We also notice one thing that we see drop in Uber pickups during mid-week.
+April3 shows scaled plot of Uber Pickups cumulatitudeed by a day, daily change in weather and change in precipitation. We notice one thing consistently, i.e whenever there is precipitation or sharp changes in weather Uber pickups substantially increase. The cases are highlighted in the plot. We also notice one thing that we see drop in Uber pickups during mid-week.
 
 \begin{center}
 \includegraphics[width=8cm, height=8cm]{April3} 
@@ -289,7 +311,7 @@ April3 shows scaled plot of Uber Pickups cumulated by a day, daily change in wea
 
 \paragraph{6.2 Trends for June}  ~\\
 
-We apply Gaussian process regression for Uber pickups data of April, the plot of mean, covariance and confidence intervals shown in below image. In this figure ?x? is actually the data point. Blue line is mean of the Gaussian that we fit. There is also a light blue fill represents confidence intervals (variance). After optimizing and maximizing the log likelihood the mean of the Gaussian is a good fit. Also another important change was to fix the kernels parameters so that re-running optimization of GPFlow model does not change. \\
+We apply Gaussian process regression for Uber pickups data of April, the plot of mean, covariance and confidence intervals shown in below image. In this figure  is actually the data point. Blue line is mean of the Gaussian that we fit. There is also a light blue fill represents confidence intervals (variance). After optimizing and maximizing the log likelihood the mean of the Gaussian is a good fit. Also another important change was to fix the kernels parameters so that re-running optimization of GPFlow model does not change. \\
 
 \begin{center}
 \includegraphics[width=8cm, height=8cm]{June1} 
@@ -301,7 +323,21 @@ Scaled plot of temperatures, precipitation and mean of our Gaussian suggests tha
 \includegraphics[width=8cm, height=8cm]{June2} 
 \end{center}
 
-\paragraph{6.2 Weekend Vs Weekday Trend} ~\\
+\paragraph{6.3 Trends for complete dataset}  ~\\
+
+Apart from the general trend we observed due to precipitation across our dataset, we did observe a few outliers (unexpected increase in number of pickups) which can be attributed to important events that have had happened around the pickup location.
+
+
+\begin{itemize}
+\item  May 03 2014 [ High pickups ] : Revlon marathon happened on this day which attracted lot of New Yorkers to this event. Also, there was an NYC subway rail accident due to which NYC subway was shut for a few hours.
+\item April 13 2014 [ High pickups ] : Baseball match between Boston Red Sox and New York Yankees.
+\item May 26 2014, July 4 2014 [ Low pickups ] : Due to memorial day and independence day the number of pickups were low.
+\item September 12 2014 [ High pickups ] : Baseball match between Baltimore orioles and New York Yankees.
+\item May 24 2014 [ High Pickups ] : March against Monsanto NYC at Union Square.
+\item June 13 2014 [ High Pickups ] : Baseball match between San Diego Padres vs New York Mets.
+\end{itemize}
+
+\paragraph{6.4 Weekend Vs Weekday Trend} ~\\
 
 From  the below two heatmaps, we can clearly identity the area where most of the commercial buildings are situated (5,6,7,Madison,Park Ave).This can be due to the more people using uber for going to office.
 
