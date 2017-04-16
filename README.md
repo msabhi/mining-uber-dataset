@@ -21,7 +21,9 @@ parsed_data contains data parsed for plotting on NY map and for exploratory data
 **RandomForest  :** Contains Random Forest algorithm and Binning on data.
 <br>
 Trends.ipynb Trends on data based on Random Forest.
-RandomFores.ipynb RF alorithm on the pre-processed data i.e 5 months of training data and 1 month of testing data
+<br>
+RandomFores.ipynb RF alorithm on the pre-processed data i.e 5 months of training data and 1 month of testing data.
+<br>
 Counting.ipynb Grid Binning of original data and also the final binning based on time.
 
 **Contributors**
