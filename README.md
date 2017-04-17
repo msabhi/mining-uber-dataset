@@ -26,6 +26,12 @@ RandomFores.ipynb RF alorithm on the pre-processed data i.e 5 months of training
 <br>
 Counting.ipynb Grid Binning of original data and also the final binning based on time.
 
+**GPFlow :** Contains GPFlow trend analysis algorithm and data for the same.
+<br />
+GPflow-trend-analysis.ipynb - Trends on dataset as function of time.
+parsing-scripts.ipynb - to parse the raw data into weather and result file.
+data : Folder contains all the weather information and data binned on time.
+
 **Contributors**
 Raviraj Wani
 Satya Akhil Chowdary Kuchipudi
