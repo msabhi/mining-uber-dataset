@@ -4,6 +4,8 @@
 
 **auto.bash  :** Program used for parsing of data and for exploratory data analysis.
 
+**ProjectReport.pdf  :** Final report for Project
+
 **Directories and their description  :**
 
 **exploratory_analysis  :**
