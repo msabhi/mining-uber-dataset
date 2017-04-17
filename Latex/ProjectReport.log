@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  16 APR 2017 19:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  16 APR 2017 20:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -681,51 +681,52 @@ File: images/April1.png Graphic file (type png)
 Package pdftex.def Info: images/April1.png used on input line 285.
 (pdftex.def)             Requested size: 341.43416pt x 227.63042pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 288--289
-
- []
-
 [14 <./images/April1.png>] <images/April2.png, id=119, 416.2752pt x 274.626pt>
 File: images/April2.png Graphic file (type png)
 
 <use images/April2.png>
 Package pdftex.def Info: images/April2.png used on input line 290.
-(pdftex.def)             Requested size: 341.44951pt x 170.71472pt.
+(pdftex.def)             Requested size: 341.44951pt x 199.16788pt.
  <images/April3.png, id=120, 400.3758pt x 274.626pt>
 File: images/April3.png Graphic file (type png)
 
 <use images/April3.png>
 Package pdftex.def Info: images/April3.png used on input line 295.
-(pdftex.def)             Requested size: 227.63008pt x 227.62103pt.
+(pdftex.def)             Requested size: 341.45734pt x 199.16788pt.
  [15 <./images/April2.png> <./images/April3.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 312--313
+Underfull \hbox (badness 10000) in paragraph at lines 314--315
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 314--315
+Underfull \hbox (badness 10000) in paragraph at lines 316--317
 
  []
 
 <images/June1.png, id=127, 416.2752pt x 279.6849pt>
 File: images/June1.png Graphic file (type png)
  <use images/June1.png>
-Package pdftex.def Info: images/June1.png used on input line 317.
-(pdftex.def)             Requested size: 227.62453pt x 227.63177pt.
+Package pdftex.def Info: images/June1.png used on input line 319.
+(pdftex.def)             Requested size: 341.44951pt x 227.63177pt.
 
 [16 <./images/June1.png>] <images/June2.png, id=134, 400.3758pt x 274.626pt>
 File: images/June2.png Graphic file (type png)
 
 <use images/June2.png>
-Package pdftex.def Info: images/June2.png used on input line 323.
-(pdftex.def)             Requested size: 227.63008pt x 227.62103pt.
+Package pdftex.def Info: images/June2.png used on input line 325.
+(pdftex.def)             Requested size: 341.45734pt x 227.62103pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 326--327
+Underfull \hbox (badness 10000) in paragraph at lines 328--329
 
  []
 
 [17 <./images/June2.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 340--341
+Underfull \hbox (badness 10000) in paragraph at lines 341--342
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 343--344
 
  []
 
@@ -733,50 +734,60 @@ Underfull \hbox (badness 10000) in paragraph at lines 340--341
 File: images/monday.jpg Graphic file (type jpg)
 
 <use images/monday.jpg>
-Package pdftex.def Info: images/monday.jpg used on input line 344.
-(pdftex.def)             Requested size: 227.61632pt x 227.61949pt.
+Package pdftex.def Info: images/monday.jpg used on input line 346.
+(pdftex.def)             Requested size: 170.7011pt x 227.61949pt.
 
 <images/friday.jpg, id=142, 1460.45625pt x 1404.24625pt>
 File: images/friday.jpg Graphic file (type jpg)
 
 <use images/friday.jpg>
-Package pdftex.def Info: images/friday.jpg used on input line 345.
-(pdftex.def)             Requested size: 227.61632pt x 227.61949pt.
-
-Overfull \hbox (85.46854pt too wide) in paragraph at lines 344--346
-[][] [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 344--346
-
- []
-
-[18 <./images/monday.jpg> <./images/friday.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 355--356
+Package pdftex.def Info: images/friday.jpg used on input line 347.
+(pdftex.def)             Requested size: 170.7011pt x 227.61949pt.
+ [18 <./images/monday.jpg> <./images/friday.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 352--353
 
  []
 
 
-Overfull \hbox (40.50247pt too wide) in paragraph at lines 357--358
+Underfull \hbox (badness 10000) in paragraph at lines 354--355
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 356--357
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 358--359
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 362--363
+
+ []
+
+
+Overfull \hbox (40.50247pt too wide) in paragraph at lines 364--365
 [][][]\OT1/cmr/m/n/12 https://www.linkedin.com/pulse/amazing-ways-uber-using-bi
 g-data-analytics-
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 360.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 368.
 [19]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 360.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 368.
  (./ProjectReport.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 360.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 360.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 368.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 368.
 Package rerunfilecheck Info: File `ProjectReport.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 360.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 368.
  ) 
 Here is how much of TeX's memory you used:
  6536 strings out of 493014
  94614 string characters out of 6133351
- 283082 words of memory out of 5000000
+ 283186 words of memory out of 5000000
  9940 multiletter control sequences out of 15000+600000
  11789 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -792,10 +803,10 @@ al/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/
 texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/t
 exlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/tex
 live/2016/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on ProjectReport.pdf (20 pages, 3349721 bytes).
+Output written on ProjectReport.pdf (20 pages, 3350941 bytes).
 PDF statistics:
- 207 PDF objects out of 1000 (max. 8388607)
- 146 compressed objects within 2 object streams
+ 208 PDF objects out of 1000 (max. 8388607)
+ 147 compressed objects within 2 object streams
  47 named destinations out of 1000 (max. 500000)
  71 words of extra memory for PDF output out of 10000 (max. 10000000)
 

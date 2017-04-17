@@ -88,11 +88,11 @@ We need to do one main change to this before we proceed with this step. We need 
 
 We came up with a new approach for binning, that is to do a geospatial DBSCAN. We ran a geospatial DBSCAN on the latitude-longitude points to determine clusters. We didn't use euclidean distance for distance measure, instead we went with haversine formula for calculatitudeing distance between pair of latitude-longitude points.  Then we calculatitudeed the centers of the clusters by calculatitudeing the mean of the points belonging to one cluster. The issue with this approach was that we did not get uniformly distributed and equally sized clusters.\\
 
-So to solve this, we worked on manual binning by actually dividing NYC into equally sized square grids. This approach works because we divide the city into smaller square blocks of grids and all pickup locations in that particular grid can be denoted or represented by a center of the grid. Hence we get equal size grids by geographical area over the whole New York City\\
+So to solve this, we worked on manual binning by actually dividing NYC into equally sized square grids. This approach works because we divide the city into smaller square blocks of grids and all pickup locations in that particular grid can be denoted or represented by a center of the grid. Hence we get equal size grids by geographical area over the whole UberNew York City\\
 
 \paragraph{3.2 Binning by Time} ~\\
 
-To analyze the uber pickup trends based on time we need to understand on how to bin the data based on hours with the values between 1 to 24. We won't be considering minutes and seconds, as the granularity of that level wouldn't give any useful trends. If we consider all distinct latitude-longitude points rounded upto 3 places of decimal, we have 6,48,517 distinct latitude,longitude combinations for our dataset. We have 30 days per month and 24 hours per day. So if we were to generate all possible cases, we would end up with 6,48,517 * 30 * 24 distinct records, which is a really high number to compute upon.  So now the computation complexity depends on how many grids or clusters we computed with location based binning multiplied by time based binning. In this way, we control the computation complexity of the problem by tuning the number of grids or bins in time.\\
+To analyze the Uber pickup trends based on time we need to understand on how to bin the data based on hours with the values between 1 to 24. We won't be considering minutes and seconds, as the granularity of that level wouldn't give any useful trends. If we consider all distinct latitude-longitude points rounded upto 3 places of decimal, we have 6,48,517 distinct latitude,longitude combinations for our dataset. We have 30 days per month and 24 hours per day. So if we were to generate all possible cases, we would end up with 6,48,517 * 30 * 24 distinct records, which is a really high number to compute upon.  So now the computation complexity depends on how many grids or clusters we computed with location based binning multiplied by time based binning. In this way, we control the computation complexity of the problem by tuning the number of grids or bins in time.\\
 
 \paragraph{3.3 Plotting GeoJSON} ~\\
 
@@ -279,21 +279,23 @@ ${\mathbb{E}}[\frac{f(x_{\star })}{y}]  = \sum_{n,m}k(x_{*},x_{n})(K + \lambda I
 
 \paragraph{6.1 Trends for April}  ~\\
 
-We apply Gaussian process regression for Uber pickups data of April, the plot of mean, covariance and confidence intervals shown in below image. In this figure ?x? is actually the data point. Blue line is mean of the Gaussian that we fit. There is also a light blue fill represents confidence intervals (variance). After optimizing and maximizing the log likelihood the mean of the Gaussian is a good fit. Also another important change was to fix the kernels parameters so that re-running optimization of GPFlow model does not change. \\
+We apply Gaussian process regression for Uber pickups data of April, the plot of mean, covariance and confidence intervals shown below. In this plot marker 'x' represents the data point. Blue line is mean of the Gaussian that we fit. There is also a light blue fill represents confidence intervals (variance). After optimizing and maximizing the log likelihood the mean of the Gaussian is a good fit.  Another important change was to fix the kernels parameters so that re-running the optimization of GPFlow model does not change the log likelihood values. \\
 
 \begin{center}
 \includegraphics[width=12cm, height=8cm]{April1} 
 \end{center}
 
-Below figure shows the residual plot that is plotting the data by reducing mean from the GP model for each point. Looking at this figure we can conclude that more than 95 of the data is within 5 range of mean we fit. This also gives us a hint to look at points which are substantially away from the mean. So these points are the hours where Uber had substantial increase in its pickups. We need to investigate the reasons for this increase and hence we do the analysis factors like change in temperature, prepetition(rainfall), public holidays (state or federal) or any incident that accounts for this increase in Uber pickups. \\
+The image below shows the residual plot that is plotting the data by subtracting the mean of GP model from each data point. Looking at this figure we can conclude that more than 95\% of the data is within 5\% range of the mean we fit. This also gives us a hint to look at points which are substantially away from the mean. So these points are the hours where Uber had substantial increase in its pickups. We need to investigate the reasons for this increase and hence we do the analysis factors like change in temperature, precipitation(rainfall), public holidays (state or federal) or any incident that accounts for this increase in Uber pickups.
 \begin{center}
-\includegraphics[width=12cm, height=8cm]{April2} 
+\includegraphics[width=12cm, height=7cm]{April2} 
 \end{center}
-April3 shows scaled plot of Uber Pickups cumulatitudeed by a day, daily change in weather and change in precipitation. We notice one thing consistently, i.e whenever there is precipitation or sharp changes in weather Uber pickups substantially increase. The cases are highlighted in the plot. We also notice one thing that we see drop in Uber pickups during mid-week.
+The image below shows the scaled plot of the mean of Uber Pickups (mean of the Gaussian Model) cumulated by a day, daily change in weather and change in precipitation. We notice one thing consistently, i.e whenever there is precipitation or sharp changes in weather, the Uber pickups substantially increase.We also notice one thing that we see drop in Uber pickups during mid-week.
 
 \begin{center}
-\includegraphics[width=8cm, height=8cm]{April3} 
+\includegraphics[width=12cm, height=7cm]{April3} 
 \end{center}
+
+The table shows a list of points where uber pickup substantially increased as compared to the mean.
 
 \begin{center}
  \begin{tabular}{||c c c||} 
@@ -309,24 +311,23 @@ April3 shows scaled plot of Uber Pickups cumulatitudeed by a day, daily change i
 \end{tabular}
 \end{center}
 
-\paragraph{6.2 Trends for June}  ~\\
+\paragraph{6.2 Trends for July}  ~\\
 
-We apply Gaussian process regression for Uber pickups data of April, the plot of mean, covariance and confidence intervals shown in below image. In this figure  is actually the data point. Blue line is mean of the Gaussian that we fit. There is also a light blue fill represents confidence intervals (variance). After optimizing and maximizing the log likelihood the mean of the Gaussian is a good fit. Also another important change was to fix the kernels parameters so that re-running optimization of GPFlow model does not change. \\
+The below image shows residual graph for July. We can see that more than 97\% of the data is within 4\% of variance and we get certain points where Uber pickups substantially increased as well as certain points with substantial drop in Uber pickups. We will now analyze these sudden change in Uber pickups on these points in regards with weather or any other activity \\
 
 \begin{center}
-\includegraphics[width=8cm, height=8cm]{June1} 
+\includegraphics[width=12cm, height=8cm]{June1} 
 \end{center}
 
 Scaled plot of temperatures, precipitation and mean of our Gaussian suggests that every time there was rainfall, Uber pickups substantially increased. This trend can be easily verified in regards with other months as well. Also we know that 4th of July is Independence day and we see a sharp decline in Uber pickups on that federal holiday. Some other observations also suggest increase in Uber pickups with increase in temperature.
 
 \begin{center}
-\includegraphics[width=8cm, height=8cm]{June2} 
+\includegraphics[width=12cm, height=8cm]{June2} 
 \end{center}
 
-\paragraph{6.3 Trends for complete dataset}  ~\\
+\paragraph{6.3 Outliers in residual graph for complete dataset}  ~\\
 
-Apart from the general trend we observed due to precipitation across our dataset, we did observe a few outliers (unexpected increase in number of pickups) which can be attributed to important events that have had happened around the pickup location.
-
+Apart from the general trend we observed due to changes in precipitation or temperature across our dataset, we did observe a few outliers (unexpected increase in number of pickups) which can be attributed to important events (manmade events like games,accidents which don't occur periodically) that have had happened around the pickup location. A few important one are listed below
 
 \begin{itemize}
 \item  May 03 2014 [ High pickups ] : Revlon marathon happened on this day which attracted lot of New Yorkers to this event. Also, there was an NYC subway rail accident due to which NYC subway was shut for a few hours.
@@ -339,22 +340,29 @@ Apart from the general trend we observed due to precipitation across our dataset
 
 \paragraph{6.4 Weekend Vs Weekday Trend} ~\\
 
-From  the below two heatmaps, we can clearly identity the area where most of the commercial buildings are situated (5,6,7,Madison,Park Ave).This can be due to the more people using uber for going to office.
+The plot on the left represents the uber pickup during the Mondays and the right shows pickups during Fridays night, we can clearly identity the area where most of the commercial buildings are situated (5,6,7,Madison,Park Ave).\\
 
-\includegraphics[width=8cm, height=8cm]{monday}
-\includegraphics[width=8cm, height=8cm]{friday} \\
 
-\break
-
-\paragraph{7 Conclusions}
-
+\includegraphics[width=6cm, height=8cm]{monday} 
+\includegraphics[width=6cm, height=8cm]{friday}
 
 
 \break
 
-\paragraph{8 REFRENCES:} ~\\
+\paragraph{7 Conclusions} ~\\
+
+Goal of the project was to predict the number of pickups given the location and time, analyze the pickup trends across the month,day and weeks, study the change in uber pickup with change in temperature and precipitation and also investigate other possible reasons. The purpose behind our goal can potentially help uber to stage more drivers in the areas that could possible have more pickups and reduce the waiting time for their customers.\\
+
+We did exploratory analysis to understand the dense areas by visualizing the distribution of pickup points, the rate of change of number of pickups by hour/day/week/month. Our exploratory analysis included histograms, density plot using choropleth and GeoJSON plotting. By these, we established that our data was continuous and we also removed the noise points. \\
+
+We achieved  89\% accuracy and RMSE of 1.791 with Random forest regressor to predict number of Uber pickup given location and time. \\
+
+GPFlow regression helped us determine the trends in our dataset as a function of time. By toggling our periodic and mattern kernel, we were able to conclude that the data points were directly affected by precipitation, weather and also the outliers caused due to random important events in New York city. We saw an increase in pickups whenever there was rain or any important events like a baseball match, while there were decrease in pickups on Federal holidays.
+
+\paragraph{8 References:} ~\\
 \begin{itemize}
 \item \href{https://www.linkedin.com/pulse/amazing-ways-uber-using-big-data-analytics-bernard-marr}{https://www.linkedin.com/pulse/amazing-ways-uber-using-big-data-analytics-bernard-marr}
 \item \href{http://geojson.org/}{http://geojson.org/}
+\item \href{https://github.com/GPflow/GPflow}{https://github.com/GPflow/GPflow}
 \end{itemize}
 \end{document}
