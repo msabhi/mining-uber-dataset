@@ -6,11 +6,11 @@
 
 **Directories and their description  :**
 
-**exploratory_analysis
+**exploratory_analysis  :**
 - ExploratoryAnalysis.ipynb :** Exploratory used to plot histograms of pickups per day/month/hour
 - Geographic_exploratory_analysis.ipynb :** Program used for plotting data on NY map using the parsed files in parsed_data folder.
 
-**algoritmic_analysis
+**algoritmic_analysis  :**
 - Contains GeoSpatial DbScan code, GeoJSON parsing scripts, Scripts for Binning the data by location and time
 
 **Images :** Contains all of our
